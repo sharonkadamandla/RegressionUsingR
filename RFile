@@ -1,0 +1,30 @@
+Birthweights -> bw
+
+summary(bw)
+
+# Histogram of bwt
+x <- bw$bwt  
+h <- hist(x, breaks = 10, col = "red", xlab = "bwt (grams)", main = "Histogram of bwt")
+xfit <- seq(1559, 4990, length = 40)
+yfit <- dnorm(xfit, mean = 3387, sd = sd(x))
+yfit <- yfit * diff(h$mids[1:2]) * length(x)
+lines(xfit, yfit, col = "blue", lwd = 2)
+
+# Calculating the standard deviation for each column
+sd(bw$bwt)        
+sd(bw$gestation) 
+sd(bw$age)      
+sd(bw$height)    
+sd(bw$weight)     
+
+#t test
+t.test(bw$bwt, mu = 3400)
+
+# Simple Linear Regression with smoke as independent variable
+lmodel <- lm(bwt ~ smoke, data = bw)
+summary(lmodel)
+
+# Multivariate Linear Regression
+model_multivariate <- lm(bwt ~ gestation + region + age + height + weight + smoke, data = bw)
+summary(model_multivariate)
+
